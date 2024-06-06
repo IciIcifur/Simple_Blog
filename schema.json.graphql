@@ -1,0 +1,50 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type CreatePost {
+    ok: Boolean
+    post: PostType
+}
+
+type Mutation {
+    createPost(input: PostInput!): CreatePost
+}
+
+type PostType {
+    content: String!
+    date: DateTime!
+    id: ID!
+    title: String!
+}
+
+type Query {
+    post(id: Int): PostType
+    posts: [PostType]
+}
+
+"""
+
+The `Date` scalar type represents a Date
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Date
+
+"""
+
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+input PostInput {
+    content: String
+    date: Date
+    id: Int
+    title: String
+}
