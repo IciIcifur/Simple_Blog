@@ -7,7 +7,7 @@ query getPostById($id: Int!) {
   }
 }
 
-query getAllPosts{
+query getAllPosts {
   posts {
     title
     content
@@ -16,7 +16,7 @@ query getAllPosts{
   }
 }
 
-mutation createPost($input: CreatePostInput!){
+mutation createPost($input: CreatePostInput!) {
   createPost(input: $input) {
     ok
     post {
@@ -25,13 +25,13 @@ mutation createPost($input: CreatePostInput!){
   }
 }
 
-mutation editPost($input: EditPostInput!){
+mutation editPost($input: EditPostInput!) {
   editPost(input: $input) {
     ok
   }
 }
 
-mutation deletePost($id: Int!){
+mutation deletePost($id: Int!) {
   deletePost(id: $id) {
     ok
   }

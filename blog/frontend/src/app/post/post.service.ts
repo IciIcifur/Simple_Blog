@@ -1,23 +1,28 @@
-import {Injectable} from '@angular/core';
-import {Apollo} from "apollo-angular";
-import {CreatePostGQL, DeletePostGQL, EditPostGQL, GetAllPostsGQL, GetPostByIdGQL} from "./post.generated";
-import {CreatePostInput, EditPostInput, PostType} from "../graphql-client";
+import { Injectable } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import {
+  CreatePostGQL,
+  DeletePostGQL,
+  EditPostGQL,
+  GetAllPostsGQL,
+  GetPostByIdGQL,
+} from './post.generated';
+import { CreatePostInput, EditPostInput, PostType } from '../graphql-client';
 
 export interface pageState {
-  posts: PostType[]
-  selectedPostId: number
+  posts: PostType[];
+  selectedPostId: number;
 }
 
 let _pageState: pageState = {
   posts: [],
-  selectedPostId: 1
-}
+  selectedPostId: 1,
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
-
   private getPostByIdQuery;
   private getAllPostsQuery;
 
@@ -30,56 +35,54 @@ export class PostService {
     private getPostByIdGQL: GetPostByIdGQL,
     private getAllPostsGQL: GetAllPostsGQL,
     // OTHER
-    private apollo: Apollo) {
-    this.getPostByIdQuery = getPostByIdGQL.watch({id: 1});
-    this.getPostByIdQuery.valueChanges.subscribe((data) => console.log(data.data))
+    private apollo: Apollo,
+  ) {
+    this.getPostByIdQuery = getPostByIdGQL.watch({ id: 1 });
+    this.getPostByIdQuery.valueChanges.subscribe((data) =>
+      console.log(data.data),
+    );
 
     this.getAllPostsQuery = getAllPostsGQL.watch();
-    this.getAllPostsQuery.valueChanges.subscribe((data) => console.log(data.data))
+    this.getAllPostsQuery.valueChanges.subscribe((data) =>
+      console.log(data.data),
+    );
   }
 
   public async getPostById(id: number) {
     try {
-      await this.getPostByIdQuery.refetch({id})
+      await this.getPostByIdQuery.refetch({ id });
     } catch (e) {
-      console.log('Произошла ошибка: ' + e)
+      console.log('Произошла ошибка: ' + e);
     }
   }
 
   public createPost(input: CreatePostInput) {
     try {
-      this.createPostGQL.mutate(
-        {
-          input: input
-        });
-
-
+      this.createPostGQL.mutate({
+        input: input,
+      });
     } catch (e) {
-      console.log('Произошла ошибка при создании поста: ' + e)
+      console.log('Произошла ошибка при создании поста: ' + e);
     }
   }
 
   public editPost(input: EditPostInput) {
     try {
-      this.editPostByIdGQL.mutate(
-        {
-          input: input
-        });
-
-
+      this.editPostByIdGQL.mutate({
+        input: input,
+      });
     } catch (e) {
-      console.log('Произошла ошибка при изменении поста: ' + e)
+      console.log('Произошла ошибка при изменении поста: ' + e);
     }
   }
 
   public deletePost(id: number) {
     try {
-      this.deletePostByIdGQL.mutate(
-        {
-          id
-        });
+      this.deletePostByIdGQL.mutate({
+        id,
+      });
     } catch (e) {
-      console.log('Произошла ошибка при удалении поста: ' + e)
+      console.log('Произошла ошибка при удалении поста: ' + e);
     }
   }
 }
