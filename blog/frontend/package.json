@@ -17,6 +17,8 @@
       "pre-commit": "yarn prettier"
     }
   },
+
+
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
