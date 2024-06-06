@@ -9,14 +9,11 @@
     "test": "ng test",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
     "graphql": "graphql-codegen --config codegen.ts",
-    "prettier": "prettier --write src/**/*.* *.ts *.json"
+    "prettier": "prettier --write src/**/*.* *.ts *.json",
+    "prepare": "husky"
   },
-
-
-
-
-  "husky":   {
-        "hooks": {
+  "husky": {
+    "hooks": {
       "pre-commit": "prettier"
     }
   },
