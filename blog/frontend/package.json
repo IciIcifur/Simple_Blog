@@ -12,11 +12,6 @@
     "prettier": "prettier --write src/**/*.* *.ts *.json",
     "prepare": "cd ../../ && husky install blog/frontend/.husky"
   },
-
-
-
-
-
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",

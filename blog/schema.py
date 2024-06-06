@@ -32,8 +32,8 @@ class Query(ObjectType):
     posts = graphene.List(PostType)
 
     def resolve_post(self, info, **kwargs):
-        if kwargs.get('id'):
-            return Post.objects.get(pk=kwargs.get('id'))
+        if kwargs.get("id"):
+            return Post.objects.get(pk=kwargs.get("id"))
         return None
 
     def resolve_posts(self, info, **kwargs):
@@ -52,7 +52,9 @@ class CreatePost(graphene.Mutation):
     def mutate(root, info, input: CreatePostInput = None):
         ok = True
 
-        post_instance = Post(title=input.title, content=input.content, date=date.today())
+        post_instance = Post(
+            title=input.title, content=input.content, date=date.today()
+        )
         post_instance.save()
         return CreatePost(ok=ok, post=post_instance)
 
