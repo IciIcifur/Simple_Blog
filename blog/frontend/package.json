@@ -14,9 +14,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn prettier"
+      "pre-commit": "./husky/pre-commit"
     }
   },
+
+
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
