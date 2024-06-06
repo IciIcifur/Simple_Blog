@@ -12,6 +12,10 @@
     "prettier": "prettier --write src/**/*.* *.ts *.json",
     "prepare": "husky"
   },
+
+
+
+  
   "husky": {
     "hooks": {
       "pre-commit": "prettier"
