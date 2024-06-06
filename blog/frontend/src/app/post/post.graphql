@@ -1,0 +1,26 @@
+query getPostById($id: Int!) {
+  post(id: $id) {
+    title
+    content
+    date
+    id
+  }
+}
+
+query getAllPosts{
+  posts {
+    title
+    content
+    date
+    id
+  }
+}
+
+mutation createPost($input: PostInput!){
+  createPost(input: $input) {
+    ok
+    post {
+      id
+    }
+  }
+}
