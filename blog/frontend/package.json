@@ -10,15 +10,12 @@
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
     "graphql": "graphql-codegen --config codegen.ts",
     "prettier": "prettier --write src/**/*.* *.ts *.json",
-    "prepare": "cd ../../ && husky blog/frontend/.husky"
+    "prepare": "cd ../../ && husky install blog/frontend/.husky"
   },
   "husky": {
     "hooks": {
       "pre-commit": "yarn prettier"
     }
-
-
-
   },
   "private": true,
   "dependencies": {
@@ -54,7 +51,7 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
-    "husky": "^9.0.11",
+    "husky": "^8.0.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
