@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Apollo} from "apollo-angular";
-import {gql} from "@apollo/client";
+import {PostService} from "./post.service";
 
 
 @Component({
@@ -11,39 +11,11 @@ import {gql} from "@apollo/client";
   styleUrl: './post.component.less'
 })
 export class PostComponent implements OnInit {
-  ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: gql`
-          {
-            post(id: 1) {
-              title
-              content
-            }
-          }
-        `
-      })
-      .valueChanges.subscribe((result) => {
-      console.log(result.data)
-    });
-
-
-    this.apollo.mutate({
-      mutation: gql`mutation createPost {
-          createPost(input: {title: "1ooops", content: "hhhhh"}) {
-        post {
-          id
-          title
-          content
-    }
-  }
-}
-        `
-    }).subscribe((data) => console.log(data.data))
+  async ngOnInit() {
+    await this.postFacade.getPostById(1);
 
   }
 
-  constructor(private apollo: Apollo
-  ) {
+  constructor(private apollo: Apollo, protected postFacade: PostService) {
   }
 }
