@@ -10,15 +10,16 @@
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
     "graphql": "graphql-codegen --config codegen.ts",
     "prettier": "prettier --write src/**/*.* *.ts *.json",
-    "prepare": "husky"
+    "prepare": "cd ../../ && husky blog/frontend/.husky"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "./husky/pre-commit"
+      "pre-commit": "yarn prettier"
     }
+
+
+
   },
-
-
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
