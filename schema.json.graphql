@@ -10,8 +10,18 @@ type CreatePost {
     post: PostType
 }
 
+type DeletePostById {
+    ok: Boolean
+}
+
+type EditPostById {
+    ok: Boolean
+}
+
 type Mutation {
-    createPost(input: PostInput!): CreatePost
+    createPost(input: CreatePostInput!): CreatePost
+    deletePost(id: Int!): DeletePostById
+    editPost(input: EditPostInput): EditPostById
 }
 
 type PostType {
@@ -42,9 +52,15 @@ value as specified by
 """
 scalar DateTime
 
-input PostInput {
+input CreatePostInput {
     content: String
     date: Date
+    id: Int
+    title: String
+}
+
+input EditPostInput {
+    content: String
     id: Int
     title: String
 }

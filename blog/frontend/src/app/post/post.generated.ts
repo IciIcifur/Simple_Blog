@@ -1,8 +1,8 @@
 import * as Types from '../graphql-client';
 
+import * as Apollo from 'apollo-angular';
 import {gql} from 'apollo-angular';
 import {Injectable} from '@angular/core';
-import * as Apollo from 'apollo-angular';
 
 export type GetPostByIdQueryVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
@@ -19,11 +19,25 @@ export type GetAllPostsQuery = {
 };
 
 export type CreatePostMutationVariables = Types.Exact<{
-  input: Types.PostInput;
+  input: Types.CreatePostInput;
 }>;
 
 
 export type CreatePostMutation = { createPost?: { ok?: boolean | null, post?: { id: string } | null } | null };
+
+export type EditPostMutationVariables = Types.Exact<{
+  input: Types.EditPostInput;
+}>;
+
+
+export type EditPostMutation = { editPost?: { ok?: boolean | null } | null };
+
+export type DeletePostMutationVariables = Types.Exact<{
+  id: Types.Scalars['Int']['input'];
+}>;
+
+
+export type DeletePostMutation = { deletePost?: { ok?: boolean | null } | null };
 
 export const GetPostByIdDocument = gql`
   query getPostById($id: Int!) {
@@ -70,7 +84,7 @@ export class GetAllPostsGQL extends Apollo.Query<GetAllPostsQuery, GetAllPostsQu
 }
 
 export const CreatePostDocument = gql`
-  mutation createPost($input: PostInput!) {
+  mutation createPost($input: CreatePostInput!) {
     createPost(input: $input) {
       ok
       post {
@@ -85,6 +99,44 @@ export const CreatePostDocument = gql`
 })
 export class CreatePostGQL extends Apollo.Mutation<CreatePostMutation, CreatePostMutationVariables> {
   document = CreatePostDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+
+export const EditPostDocument = gql`
+  mutation editPost($input: EditPostInput!) {
+    editPost(input: $input) {
+      ok
+    }
+  }
+`;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EditPostGQL extends Apollo.Mutation<EditPostMutation, EditPostMutationVariables> {
+  document = EditPostDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+
+export const DeletePostDocument = gql`
+  mutation deletePost($id: Int!) {
+    deletePost(id: $id) {
+      ok
+    }
+  }
+`;
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DeletePostGQL extends Apollo.Mutation<DeletePostMutation, DeletePostMutationVariables> {
+  document = DeletePostDocument;
 
   constructor(apollo: Apollo.Apollo) {
     super(apollo);

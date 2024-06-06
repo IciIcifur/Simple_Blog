@@ -1,14 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Apollo} from "apollo-angular";
-import {QueryRef} from "@apollo/client";
-import {
-  CreatePostGQL,
-  GetAllPostsGQL,
-  GetPostByIdGQL,
-  GetPostByIdQuery,
-  GetPostByIdQueryVariables
-} from "./post.generated";
-import {PostInput, PostType} from "../graphql-client";
+import {CreatePostGQL, DeletePostGQL, EditPostGQL, GetAllPostsGQL, GetPostByIdGQL} from "./post.generated";
+import {CreatePostInput, EditPostInput, PostType} from "../graphql-client";
 
 export interface pageState {
   posts: PostType[]
@@ -30,7 +23,9 @@ export class PostService {
 
   constructor(
     // MUTATIONS
-    private createPostByIdGQL: CreatePostGQL,
+    private createPostGQL: CreatePostGQL,
+    private editPostByIdGQL: EditPostGQL,
+    private deletePostByIdGQL: DeletePostGQL,
     // QUERIES
     private getPostByIdGQL: GetPostByIdGQL,
     private getAllPostsGQL: GetAllPostsGQL,
@@ -47,20 +42,44 @@ export class PostService {
     try {
       await this.getPostByIdQuery.refetch({id})
     } catch (e) {
-      console.log('Not found: ' + e)
+      console.log('Произошла ошибка: ' + e)
     }
   }
 
-  public createPost(input: PostInput) {
+  public createPost(input: CreatePostInput) {
     try {
-      this.createPostByIdGQL.mutate(
+      this.createPostGQL.mutate(
         {
           input: input
         });
 
 
     } catch (e) {
-      console.log('Произошла ошибка: ' + e)
+      console.log('Произошла ошибка при создании поста: ' + e)
+    }
+  }
+
+  public editPost(input: EditPostInput) {
+    try {
+      this.editPostByIdGQL.mutate(
+        {
+          input: input
+        });
+
+
+    } catch (e) {
+      console.log('Произошла ошибка при изменении поста: ' + e)
+    }
+  }
+
+  public deletePost(id: number) {
+    try {
+      this.deletePostByIdGQL.mutate(
+        {
+          id
+        });
+    } catch (e) {
+      console.log('Произошла ошибка при удалении поста: ' + e)
     }
   }
 }

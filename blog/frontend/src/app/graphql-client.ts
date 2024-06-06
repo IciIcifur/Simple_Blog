@@ -22,21 +22,49 @@ export type CreatePost = {
   post?: Maybe<PostType>;
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  createPost?: Maybe<CreatePost>;
-};
-
-
-export type MutationCreatePostArgs = {
-  input: PostInput;
-};
-
-export type PostInput = {
+export type CreatePostInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   date?: InputMaybe<Scalars['Date']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DeletePostById = {
+  __typename?: 'DeletePostById';
+  ok?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type EditPostById = {
+  __typename?: 'EditPostById';
+  ok?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type EditPostInput = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createPost?: Maybe<CreatePost>;
+  deletePost?: Maybe<DeletePostById>;
+  editPost?: Maybe<EditPostById>;
+};
+
+
+export type MutationCreatePostArgs = {
+  input: CreatePostInput;
+};
+
+
+export type MutationDeletePostArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationEditPostArgs = {
+  input?: InputMaybe<EditPostInput>;
 };
 
 export type PostType = {

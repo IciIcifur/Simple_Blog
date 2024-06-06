@@ -286,7 +286,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "PostInput",
+                      "name": "CreatePostInput",
                       "ofType": null
                     }
                   }
@@ -299,6 +299,56 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CreatePost",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "input",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "EditPostInput",
+                    "ofType": null
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "editPost",
+              "type": {
+                "kind": "OBJECT",
+                "name": "EditPostById",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "id",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "deletePost",
+              "type": {
+                "kind": "OBJECT",
+                "name": "DeletePostById",
                 "ofType": null
               }
             }
@@ -402,7 +452,7 @@
           ],
           "interfaces": null,
           "kind": "INPUT_OBJECT",
-          "name": "PostInput",
+          "name": "CreatePostInput",
           "possibleTypes": null
         },
         {
@@ -413,6 +463,93 @@
           "interfaces": null,
           "kind": "SCALAR",
           "name": "Date",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "ok",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "EditPostById",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "title",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "content",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "EditPostInput",
+          "possibleTypes": null
+        },
+        {
+          "description": null,
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "ok",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "DeletePostById",
           "possibleTypes": null
         },
         {

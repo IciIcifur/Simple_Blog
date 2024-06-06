@@ -16,11 +16,23 @@ query getAllPosts{
   }
 }
 
-mutation createPost($input: PostInput!){
+mutation createPost($input: CreatePostInput!){
   createPost(input: $input) {
     ok
     post {
       id
     }
+  }
+}
+
+mutation editPost($input: EditPostInput!){
+  editPost(input: $input) {
+    ok
+  }
+}
+
+mutation deletePost($id: Int!){
+  deletePost(id: $id) {
+    ok
   }
 }
