@@ -49,10 +49,10 @@ class CreatePost(graphene.Mutation):
     post = graphene.Field(PostType)
 
     @staticmethod
-    def mutate(root, info, create_input: CreatePostInput = None):
+    def mutate(root, info, input: CreatePostInput = None):
         ok = True
 
-        post_instance = Post(title=create_input.title, content=create_input.content, date=date.today())
+        post_instance = Post(title=input.title, content=input.content, date=date.today())
         post_instance.save()
         return CreatePost(ok=ok, post=post_instance)
 
@@ -64,11 +64,11 @@ class EditPostById(graphene.Mutation):
     ok = graphene.Boolean()
 
     @staticmethod
-    def mutate(root, info, edit_input: EditPostInput = None):
+    def mutate(root, info, input: EditPostInput = None):
         ok = True
-        post_instance = Post.objects.get(pk=edit_input.id)
-        post_instance.title = edit_input.title
-        post_instance.content = edit_input.content
+        post_instance = Post.objects.get(pk=input.id)
+        post_instance.title = input.title
+        post_instance.content = input.content
         post_instance.save()
         return EditPostById(ok=ok)
 
