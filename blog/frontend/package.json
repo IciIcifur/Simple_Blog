@@ -13,6 +13,7 @@
 
     "prepare": "cd ../../ && husky install blog/frontend/.husky"
   },
+  
   "husky": {
     "hooks": {
       "pre-commit": "echo \"[Husky] pre-commit\""
