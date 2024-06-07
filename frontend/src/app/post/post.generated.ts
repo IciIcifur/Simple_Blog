@@ -1,9 +1,8 @@
 import * as Types from '../graphql-client';
 
-import * as Apollo from 'apollo-angular';
 import { gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
-
+import * as Apollo from 'apollo-angular';
 export type GetPostByIdQueryVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
 }>;
@@ -69,7 +68,6 @@ export class GetPostByIdGQL extends Apollo.Query<
     super(apollo);
   }
 }
-
 export const GetAllPostsDocument = gql`
   query getAllPosts {
     posts {
@@ -94,7 +92,6 @@ export class GetAllPostsGQL extends Apollo.Query<
     super(apollo);
   }
 }
-
 export const CreatePostDocument = gql`
   mutation createPost($input: CreatePostInput!) {
     createPost(input: $input) {
@@ -119,7 +116,6 @@ export class CreatePostGQL extends Apollo.Mutation<
     super(apollo);
   }
 }
-
 export const EditPostDocument = gql`
   mutation editPost($input: EditPostInput!) {
     editPost(input: $input) {
@@ -141,7 +137,6 @@ export class EditPostGQL extends Apollo.Mutation<
     super(apollo);
   }
 }
-
 export const DeletePostDocument = gql`
   mutation deletePost($id: Int!) {
     deletePost(id: $id) {

@@ -1,5 +1,5 @@
 name: Deployment
-run-name: Deploy app through GitHub Pages
+run-name: Deploy app
 on:
   push:
     branches:

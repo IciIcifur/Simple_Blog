@@ -8,21 +8,25 @@ import {
   GetPostByIdGQL,
 } from './post.generated';
 import { CreatePostInput, EditPostInput, PostType } from '../graphql-client';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
-export interface pageState {
+export interface PageState {
   posts: PostType[];
-  selectedPostId: number;
+  selectedPostId: string;
 }
 
-let _pageState: pageState = {
+let _pageState: PageState = {
   posts: [],
-  selectedPostId: 1,
+  selectedPostId: '1',
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
+  private store = new BehaviorSubject<PageState>(_pageState);
+  private state$ = this.store.asObservable();
+
   private getPostByIdQuery;
   private getAllPostsQuery;
 
@@ -38,49 +42,86 @@ export class PostService {
     private apollo: Apollo,
   ) {
     this.getPostByIdQuery = getPostByIdGQL.watch({ id: 1 });
-    this.getPostByIdQuery.valueChanges.subscribe((data) =>
-      console.log(data.data),
-    );
+    this.getPostByIdQuery.valueChanges.subscribe((data) => {
+      if (data.data.post) {
+        const selectedPostId = data.data.post.id;
+        this.store.next((_pageState = { ..._pageState, selectedPostId }));
+      }
+    });
 
     this.getAllPostsQuery = getAllPostsGQL.watch();
-    this.getAllPostsQuery.valueChanges.subscribe((data) =>
-      console.log(data.data),
-    );
+    this.getAllPostsQuery.valueChanges.subscribe(({ data }) => {
+      if (data.posts) {
+        const posts = <PostType[]>data.posts;
+        this.store.next((_pageState = { ..._pageState, posts }));
+      }
+    });
   }
 
-  public async getPostById(id: number) {
+  public async getPostById(id: string) {
     try {
-      await this.getPostByIdQuery.refetch({ id });
+      await this.getPostByIdQuery.refetch({ id: Number(id) });
     } catch (e) {
       console.log('Произошла ошибка: ' + e);
     }
   }
 
-  public createPost(input: CreatePostInput) {
+  public async createPost(input: CreatePostInput) {
     try {
-      this.createPostGQL.mutate({
-        input: input,
-      });
+      const data = await firstValueFrom(
+        this.createPostGQL.mutate({
+          input: input,
+        }),
+      );
+
+      if (data.data?.createPost?.ok) {
+        const post = <PostType>data.data.createPost.post;
+        this.store.next(
+          (_pageState = { ..._pageState, posts: [..._pageState.posts, post] }),
+        );
+      }
     } catch (e) {
       console.log('Произошла ошибка при создании поста: ' + e);
     }
   }
 
-  public editPost(input: EditPostInput) {
+  public async editPost(input: EditPostInput) {
     try {
-      this.editPostByIdGQL.mutate({
-        input: input,
-      });
+      const data = await firstValueFrom(
+        this.editPostByIdGQL.mutate({
+          input: input,
+        }),
+      );
+
+      if (data.data?.editPost?.ok) {
+        const posts = _pageState.posts.map((post) =>
+          Number(post.id) == input.id
+            ? {
+                ...post,
+                title: input.title ? input.title : post.title,
+                content: input.content ? input.content : post.content,
+              }
+            : post,
+        );
+        this.store.next((_pageState = { ..._pageState, posts }));
+      }
     } catch (e) {
       console.log('Произошла ошибка при изменении поста: ' + e);
     }
   }
 
-  public deletePost(id: number) {
+  public async deletePost(id: string) {
     try {
-      this.deletePostByIdGQL.mutate({
-        id,
-      });
+      const data = await firstValueFrom(
+        this.deletePostByIdGQL.mutate({
+          id: Number(id),
+        }),
+      );
+
+      if (data.data?.deletePost?.ok) {
+        const posts = _pageState.posts.filter((post) => post.id == id);
+        this.store.next((_pageState = { ..._pageState, posts }));
+      }
     } catch (e) {
       console.log('Произошла ошибка при удалении поста: ' + e);
     }
