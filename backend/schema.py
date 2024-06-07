@@ -3,7 +3,7 @@ from datetime import date
 import graphene
 from graphene_django.types import DjangoObjectType, ObjectType
 
-from blog.models import Post
+from backend.models import Post
 
 
 # TYPES

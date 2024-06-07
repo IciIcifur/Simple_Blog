@@ -15,7 +15,7 @@ jobs:
       - name: Perform Checks
         run: |
           pipenv install --dev
-          pipenv run black --check simpleBlog blog
+          pipenv run black --check simpleBlog backend
       - run: echo "${{ job.status }}."
   CheckFrontend:
     runs-on: ubuntu-latest

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "blog",
+    "backend",
     "corsheaders",
 ]
 
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "simpleBlog.urls"
 
-TEMPLATES_DIR = os.path.join(BASE_DIR, "blog", "frontend", "src")
+TEMPLATES_DIR = os.path.join(BASE_DIR, "backend", "frontend", "src")
 
 TEMPLATES = [
     {
@@ -127,7 +127,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 GRAPHENE = {
-    "SCHEMA": "blog.schema.schema",
+    "SCHEMA": "backend.schema.schema",
 }
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:4200"]
