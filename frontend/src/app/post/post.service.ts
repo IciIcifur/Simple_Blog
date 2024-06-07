@@ -1,16 +1,17 @@
-import {Inject, Injectable} from '@angular/core';
-import {Apollo} from 'apollo-angular';
+import { Inject, Injectable } from '@angular/core';
+import { Apollo } from 'apollo-angular';
 import {
   CreatePostGQL,
   DeletePostGQL,
   EditPostGQL,
   GetAllPostsGQL,
-  GetPostByIdGQL, GetPostByIdQuery,
+  GetPostByIdGQL,
+  GetPostByIdQuery,
 } from './post.generated';
-import {CreatePostInput, EditPostInput, PostType} from '../graphql-client';
-import {BehaviorSubject, firstValueFrom, map} from 'rxjs';
-import {TuiAlertService} from '@taiga-ui/core';
-import {QueryRef} from "@apollo/client";
+import { CreatePostInput, EditPostInput, PostType } from '../graphql-client';
+import { BehaviorSubject, firstValueFrom, map } from 'rxjs';
+import { TuiAlertService } from '@taiga-ui/core';
+import { QueryRef } from '@apollo/client';
 
 export interface PageState {
   posts: PostType[];
@@ -36,12 +37,16 @@ export class PostService {
     ),
   );
 
-  public allPosts$ = this.state$.pipe(map((state) =>
-    [...state.posts].reverse().filter((post) => post.id !== _pageState.selectedPostId)
-  ));
+  public allPosts$ = this.state$.pipe(
+    map((state) =>
+      [...state.posts]
+        .reverse()
+        .filter((post) => post.id !== _pageState.selectedPostId),
+    ),
+  );
 
   public selectPost(id: string) {
-    this.store.next((_pageState = {..._pageState, selectedPostId: id}));
+    this.store.next((_pageState = { ..._pageState, selectedPostId: id }));
   }
 
   //private getPostByIdQuery;
@@ -69,10 +74,10 @@ export class PostService {
     });*/
 
     this.getAllPostsQuery = getAllPostsGQL.watch();
-    this.getAllPostsQuery.valueChanges.subscribe(({data}) => {
+    this.getAllPostsQuery.valueChanges.subscribe(({ data }) => {
       if (data.posts) {
         const posts = <PostType[]>data.posts;
-        this.store.next((_pageState = {..._pageState, posts}));
+        this.store.next((_pageState = { ..._pageState, posts }));
       }
     });
   }
@@ -100,23 +105,21 @@ export class PostService {
       if (data.data?.createPost?.ok) {
         const post = <PostType>data.data.createPost.post;
         this.store.next(
-          (_pageState = {..._pageState, posts: [..._pageState.posts, post]}),
+          (_pageState = { ..._pageState, posts: [..._pageState.posts, post] }),
         );
         this.alerts
-          .open('Пост опубликован.', {label: 'Сохранено', status: 'success'})
-          .subscribe(() => {
-          });
+          .open('Пост опубликован.', { label: 'Сохранено', status: 'success' })
+          .subscribe(() => {});
       }
     } catch (e) {
       this.alerts
-        .open(<string>e, {label: 'Ошибка', status: 'error'})
-        .subscribe(() => {
-        });
+        .open(<string>e, { label: 'Ошибка', status: 'error' })
+        .subscribe(() => {});
     }
   }
 
   public async editPost(input: EditPostInput) {
-    input = {...input, id: Number(_pageState.selectedPostId)}
+    input = { ...input, id: Number(_pageState.selectedPostId) };
     try {
       const data = await firstValueFrom(
         this.editPostByIdGQL.mutate({
@@ -128,28 +131,26 @@ export class PostService {
         const posts = _pageState.posts.map((post) =>
           Number(post.id) == input.id
             ? {
-              ...post,
-              title: input.title ? input.title : post.title,
-              content: input.content ? input.content : post.content,
-            }
+                ...post,
+                title: input.title ? input.title : post.title,
+                content: input.content ? input.content : post.content,
+              }
             : post,
         );
         this.store.next(
-          (_pageState = {..._pageState, posts, selectedPostId: ''}),
+          (_pageState = { ..._pageState, posts, selectedPostId: '' }),
         );
         this.alerts
           .open('Пост успешно отредактирован.', {
             label: 'Сохранено',
             status: 'success',
           })
-          .subscribe(() => {
-          });
+          .subscribe(() => {});
       }
     } catch (e) {
       this.alerts
-        .open(<string>e, {label: 'Ошибка', status: 'error'})
-        .subscribe(() => {
-        });
+        .open(<string>e, { label: 'Ошибка', status: 'error' })
+        .subscribe(() => {});
     }
   }
 
@@ -163,20 +164,18 @@ export class PostService {
 
       if (data.data?.deletePost?.ok) {
         const posts = _pageState.posts.filter((post) => post.id !== id);
-        this.store.next((_pageState = {..._pageState, posts}));
+        this.store.next((_pageState = { ..._pageState, posts }));
         this.alerts
           .open('Пост был успешно удален.', {
             label: 'Пост удален',
             status: 'success',
           })
-          .subscribe(() => {
-          });
+          .subscribe(() => {});
       }
     } catch (e) {
       this.alerts
-        .open(<string>e, {label: 'Ошибка', status: 'error'})
-        .subscribe(() => {
-        });
+        .open(<string>e, { label: 'Ошибка', status: 'error' })
+        .subscribe(() => {});
     }
   }
 }

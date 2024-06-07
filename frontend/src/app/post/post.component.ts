@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Apollo} from 'apollo-angular';
-import {PostService} from './post.service';
+import { Component, OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { PostService } from './post.service';
 import {
   TUI_SANITIZER,
   TuiButtonModule,
@@ -13,7 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {TuiInputModule, TuiIslandModule} from '@taiga-ui/kit';
+import { TuiInputModule, TuiIslandModule } from '@taiga-ui/kit';
 import {
   TUI_EDITOR_DEFAULT_EXTENSIONS,
   TUI_EDITOR_EXTENSIONS,
@@ -23,15 +23,15 @@ import {
   TuiEditorSocketModule,
   TuiEditorTool,
 } from '@tinkoff/tui-editor';
-import {AsyncPipe, NgForOf} from '@angular/common';
-import {firstValueFrom, Observable} from 'rxjs';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { firstValueFrom, Observable } from 'rxjs';
 import {
   CreatePostInput,
   EditPostById,
   EditPostInput,
   PostType,
 } from '../graphql-client';
-import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
 const CUSTOM_EDITOR_OPTIONS: Partial<TuiEditorOptions> = {
   colors: new Map([
@@ -119,7 +119,7 @@ const CUSTOM_EDITOR_OPTIONS: Partial<TuiEditorOptions> = {
     [8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96].map((size) => ({
       px: size,
       name: `${size}`,
-      ngStyle: {'font-size': '1rem'},
+      ngStyle: { 'font-size': '1rem' },
     })),
 };
 
@@ -172,9 +172,10 @@ export class PostComponent implements OnInit {
 
   async createPost() {
     (await firstValueFrom(this.selectedPost$))
-      ? await this.postFacade.editPost(this.newPostForm.value as EditPostInput) : await this.postFacade.createPost(
-        this.newPostForm.value as CreatePostInput,
-      )
+      ? await this.postFacade.editPost(this.newPostForm.value as EditPostInput)
+      : await this.postFacade.createPost(
+          this.newPostForm.value as CreatePostInput,
+        );
     this.newPostForm.reset();
   }
 
@@ -186,12 +187,10 @@ export class PostComponent implements OnInit {
     this.postFacade.selectPost(id);
   }
 
-
   constructor(
     private apollo: Apollo,
     protected postFacade: PostService,
-  ) {
-  }
+  ) {}
 
   readonly tools: TuiEditorTool[] = [
     TuiEditorTool.Undo,

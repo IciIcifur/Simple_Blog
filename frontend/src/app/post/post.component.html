@@ -1,10 +1,11 @@
 <div>
   <form [formGroup]="newPostForm">
-    <h1 style="margin-top: 32pt" class="tui-text_h3">{{(selectedPost$ | async) ? "Редактировать пост" : "Новый пост"}}</h1>
+    <h1 style="margin-top: 32pt" class="tui-text_h3">
+      {{ (selectedPost$ | async) ? "Редактировать пост" : "Новый пост" }}
+    </h1>
     <tui-input style="margin-top: 8pt" formControlName="title"
-    >Название поста
-    </tui-input
-    >
+      >Название поста
+    </tui-input>
     <tui-editor
       formControlName="content"
       [tools]="tools"
@@ -56,6 +57,6 @@
         ></button>
       </div>
     </div>
-    <tui-editor-socket [content]="post.content" style="margin-top: 8pt"/>
+    <tui-editor-socket [content]="post.content" style="margin-top: 8pt" />
   </tui-island>
 </div>
