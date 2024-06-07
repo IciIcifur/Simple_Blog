@@ -22,7 +22,9 @@ jobs:
       - name: Install pipenv
         run: pip install pipenv
       - name: Run Server
-        run: python manage.py runserver
+        run: |
+          pipenv shell
+          python manage.py runserver
   FrontendDeployment:
     runs-on: ubuntu-latest
     environment: production
@@ -32,4 +34,4 @@ jobs:
         run: |
           yarn install
           yarn start
-        working-directory: blog/frontend
+        working-directory: frontend

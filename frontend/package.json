@@ -11,7 +11,7 @@
     "graphql": "graphql-codegen --config codegen.ts",
     "prettier": "prettier --write src/**/*.* *.ts *.json",
     "prettier_check": "prettier --check src/**/*.* *.ts *.json",
-    "prepare": "cd ../../ && husky install blog/frontend/.husky"
+    "prepare": "cd ../ && husky install frontend/.husky"
   },
   "private": true,
   "dependencies": {

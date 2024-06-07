@@ -25,5 +25,5 @@ jobs:
         run: |
           yarn install
           yarn prettier_check
-        working-directory: blog/frontend
+        working-directory: frontend
       - run: echo "${{ job.status }}."
