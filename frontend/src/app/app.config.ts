@@ -1,4 +1,4 @@
-import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -14,8 +14,8 @@ import { TuiRootModule } from '@taiga-ui/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-        provideAnimations(),
-        provideZoneChangeDetection({ eventCoalescing: true }),
+    provideAnimations(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),

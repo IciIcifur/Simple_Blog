@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { PostService } from './post.service';
-import {TuiButtonModule} from "@taiga-ui/core";
+import { TuiButtonModule } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [
-    TuiButtonModule
-  ],
+  imports: [TuiButtonModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.less',
 })

@@ -1,10 +1,15 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {ApolloModule} from 'apollo-angular';
-import {HttpClientModule} from '@angular/common/http';
-import {PostComponent} from './post/post.component';
-import {TUI_SANITIZER, TuiAlertModule, TuiDialogModule, TuiRootModule} from '@taiga-ui/core';
-import {NgDompurifySanitizer} from "@tinkoff/ng-dompurify";
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ApolloModule } from 'apollo-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { PostComponent } from './post/post.component';
+import {
+  TUI_SANITIZER,
+  TuiAlertModule,
+  TuiDialogModule,
+  TuiRootModule,
+} from '@taiga-ui/core';
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +20,10 @@ import {NgDompurifySanitizer} from "@tinkoff/ng-dompurify";
     HttpClientModule,
     PostComponent,
     TuiRootModule,
-      TuiDialogModule,
-      TuiAlertModule
-],
-  providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
+    TuiDialogModule,
+    TuiAlertModule,
+  ],
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
