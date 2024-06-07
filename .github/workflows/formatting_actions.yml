@@ -25,8 +25,10 @@ jobs:
   CheckFrontend:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: | 
-          cd ../../blog/frontend
+          ls
           yarn install
           yarn prettier_check
+        working-directory: blog/frontend
       - run: echo "${{ job.status }}."
