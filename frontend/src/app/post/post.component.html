@@ -1,7 +1,61 @@
-<button
-  tuiButton
-  appearance="secondary-destructive"
-  (click)="console.log('hi')"
->
-  Новый пост
-</button>
+<div>
+  <form [formGroup]="newPostForm">
+    <h1 style="margin-top: 32pt" class="tui-text_h3">{{(selectedPost$ | async) ? "Редактировать пост" : "Новый пост"}}</h1>
+    <tui-input style="margin-top: 8pt" formControlName="title"
+    >Название поста
+    </tui-input
+    >
+    <tui-editor
+      formControlName="content"
+      [tools]="tools"
+      [style.max-height.px]="600"
+      style="margin-top: 8pt"
+    >
+      Что у вас нового?
+    </tui-editor>
+  </form>
+  <button
+    style="margin-top: 8pt"
+    tuiButton
+    size="m"
+    appearance="secondary"
+    (click)="createPost()"
+    [disabled]="!newPostForm.valid || !newPostForm.dirty"
+  >
+    Сохранить
+  </button>
+</div>
+
+<div>
+  <h1 style="margin-top: 16pt" class="tui-text_h3">Мои посты</h1>
+  <tui-island *ngFor="let post of allPosts$ | async" style="margin-top: 16pt">
+    <h3 class="tui-text_h5">{{ post.title }}</h3>
+
+    <div style="display: flex; justify-content: space-between">
+      <div class="tui-text_body-m-2" style="color: var(--tui-text-03)">
+        {{ post.date | tuiFormatDate | async }}
+      </div>
+      <div>
+        <button
+          tuiIconButton
+          (click)="editPost(post.id)"
+          style="margin-right: 16pt"
+          size="xs"
+          icon="tuiIconEdit3Large"
+          appearance="icon"
+          tuiHint="Редактировать пост"
+        ></button>
+        <button
+          tuiIconButton
+          (click)="deletePost(post.id)"
+          style="margin-right: 16pt"
+          size="xs"
+          icon="tuiIconTrash2Large"
+          appearance="icon"
+          tuiHint="Удалить пост"
+        ></button>
+      </div>
+    </div>
+    <tui-editor-socket [content]="post.content" style="margin-top: 8pt"/>
+  </tui-island>
+</div>

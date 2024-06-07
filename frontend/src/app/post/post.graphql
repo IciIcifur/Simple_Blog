@@ -21,6 +21,9 @@ mutation createPost($input: CreatePostInput!) {
     ok
     post {
       id
+      title
+      content
+      date
     }
   }
 }

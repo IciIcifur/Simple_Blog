@@ -27,7 +27,10 @@ export type CreatePostMutationVariables = Types.Exact<{
 }>;
 
 export type CreatePostMutation = {
-  createPost?: { ok?: boolean | null; post?: { id: string } | null } | null;
+  createPost?: {
+    ok?: boolean | null;
+    post?: { id: string; title: string; content: string; date: any } | null;
+  } | null;
 };
 
 export type EditPostMutationVariables = Types.Exact<{
@@ -98,6 +101,9 @@ export const CreatePostDocument = gql`
       ok
       post {
         id
+        title
+        content
+        date
       }
     }
   }
