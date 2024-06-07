@@ -10,6 +10,7 @@
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
     "graphql": "graphql-codegen --config codegen.ts",
     "prettier": "prettier --write src/**/*.* *.ts *.json",
+    "prettier_check": "prettier --check src/**/*.* *.ts *.json",
     "prepare": "cd ../../ && husky install blog/frontend/.husky"
   },
   "private": true,

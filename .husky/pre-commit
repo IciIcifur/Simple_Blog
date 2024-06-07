@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-black blog simpleBlog
-cd ./blog/frontend && yarn prettier
+# black blog simpleBlog
+# cd ./blog/frontend && yarn prettier
