@@ -9,15 +9,11 @@ jobs:
         python-version: [ 3.11 ]
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+      - uses: VaultVulp/action-pipenv@v2.0.1
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Dependencies
+          command: install -d
+      - name: Perform Checks
         run: |
-          python -m pip install --upgrade pip
-          pipenv shell
-          pipenv install
           black --check simpleBlog
           black --check blog
       - run: echo "${{ job.status }}."
@@ -27,6 +23,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           yarn install
+        name: Perform Checks
           yarn prettier_check
         working-directory: blog/frontend
       - run: echo "${{ job.status }}."
