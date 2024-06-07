@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {ApolloModule} from 'apollo-angular';
-import {HttpClientModule} from '@angular/common/http';
-import {PostComponent} from "./post/post.component";
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ApolloModule } from 'apollo-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { PostComponent } from './post/post.component';
 
 @Component({
   selector: 'app-root',
