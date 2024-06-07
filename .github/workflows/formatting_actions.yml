@@ -3,7 +3,7 @@ run-name: Checking formatting through Black and Prettier
 on: [ push ]
 jobs:
   CheckBackend:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ 3.11 ]
@@ -16,7 +16,6 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pipenv
           pipenv shell
           pipenv install
           black --check simpleBlog
@@ -26,8 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: | 
-          ls
+      - run: |
           yarn install
           yarn prettier_check
         working-directory: blog/frontend
