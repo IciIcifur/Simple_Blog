@@ -17,15 +17,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install Pipfile
+          pipenv shell
           black --check simpleBlog
           black --check blog
       - run: echo "${{ job.status }}."
   CheckFrontend:
     runs-on: ubuntu-latest
     steps:
-      - run: dir > echo
       - run: | 
+          cd blog/frontend
           yarn install
           yarn prettier_check
-        working-directory: blog/frontend
       - run: echo "${{ job.status }}."
