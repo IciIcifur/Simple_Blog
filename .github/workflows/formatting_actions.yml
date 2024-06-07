@@ -3,7 +3,7 @@ run-name: Checking formatting through Black and Prettier
 on: [push]
 jobs:
   CheckBackend:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - run: black --check simpleBlog
       - run: black --check blog
@@ -11,6 +11,7 @@ jobs:
   CheckFrontend:
     runs-on: ubuntu-latest
     steps:
+      - run: dir
       - run: cd blog/frontend
       - run: yarn prettier_check
       - run: echo "${{ job.status }}."
