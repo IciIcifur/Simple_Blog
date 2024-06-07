@@ -1,17 +1,32 @@
 name: Formatting Check
 run-name: Checking formatting through Black and Prettier
-on: [push]
+on: [ push ]
 jobs:
   CheckBackend:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 3.12 ]
     steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pipenv install
       - run: black --check simpleBlog
       - run: black --check blog
       - run: echo "${{ job.status }}."
   CheckFrontend:
     runs-on: ubuntu-latest
     steps:
-      - run: dir
-      - run: cd blog/frontend
+      - run: echo dir
+        working-directory: blog/frontend
+      - run: yarn install
+        working-directory: blog/frontend
       - run: yarn prettier_check
+        working-directory: blog/frontend
       - run: echo "${{ job.status }}."
