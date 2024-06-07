@@ -1,0 +1,35 @@
+name: Deployment
+run-name: Deploy app through GitHub Pages
+on:
+  push:
+    branches:
+      - master
+      - feature_deploy_github_actions
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  BackendDeployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Run Server
+        run: python manage.py runserver
+  FrontendDeployment:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Server
+        run: |
+          yarn install
+          yarn start
+        working-directory: blog/frontend
