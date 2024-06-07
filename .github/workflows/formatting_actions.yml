@@ -4,26 +4,27 @@ on: [ push ]
 jobs:
   CheckBackend:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [ 3.11 ]
     steps:
       - uses: actions/checkout@v4
-      - uses: VaultVulp/action-pipenv@v2.0.1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          command: install -d
+          python-version: 3.11
+      - name: Install pipenv
+        run: pip install pipenv
       - name: Perform Checks
         run: |
-          black --check simpleBlog
-          black --check blog
+          pipenv install --dev
+          pipenv run black --check simpleBlog
+          pipenv run black --check blog
       - run: echo "${{ job.status }}."
   CheckFrontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
+      - name: Perform Checks
+        run: |
           yarn install
-        name: Perform Checks
           yarn prettier_check
         working-directory: blog/frontend
       - run: echo "${{ job.status }}."
