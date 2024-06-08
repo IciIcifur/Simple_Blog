@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-black backend simpleBlog
+pipenv shell && black backend simpleBlog
 cd ./frontend && yarn prettier
