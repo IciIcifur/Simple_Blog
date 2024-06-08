@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-
 from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "graphene_django",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "backend",
     "corsheaders",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +56,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "simpleBlog.urls"
 
-TEMPLATES_DIR = os.path.join(BASE_DIR, "backend", "frontend", "src")
+TEMPLATES_DIR = os.path.join(
+    BASE_DIR, ".venv", "site-packages", "graphene_django", "templates"
+)
 
 TEMPLATES = [
     {

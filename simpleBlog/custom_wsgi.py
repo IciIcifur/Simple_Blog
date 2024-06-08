@@ -1,5 +1,4 @@
 import json
-import graphene
 from django.middleware.csrf import CsrfViewMiddleware
 
 
