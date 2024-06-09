@@ -6,7 +6,7 @@ on:
     branches:
       - feature_deploy_github_actions
     tags:
-      - '*'
+      - 'I am a release'
 
 jobs:
   build:
