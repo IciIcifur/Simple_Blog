@@ -1,0 +1,21 @@
+name: Release
+run-name: Building zip-release
+
+on:
+  push:
+    branches:
+      - feature_deploy_github_actions
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "simpleBlog.zip"
+          commit: "New release"
