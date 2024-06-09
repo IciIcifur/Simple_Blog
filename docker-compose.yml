@@ -1,10 +1,24 @@
-version: '3'
+version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver
-    ports:
-      - "8000:8000"
-    container_name: backend-container
+    command: gunicorn simpleBlog.wsgi:application --bind 0.0.0.0:6000
+    expose:
+      - 6000
+    container_name: backend
     environment:
       production: True
+  nginx:
+    build: ./nginx
+    ports:
+      - "8000:80"
+    container_name: proxy
+    depends_on:
+      - web
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:80"
+    container_name: frontend
+    depends_on:
+      - nginx
