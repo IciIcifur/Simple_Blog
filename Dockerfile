@@ -11,3 +11,4 @@ COPY . .
 # Запускает команду pip install для всех библиотек, перечисленных в requirements.txt
 RUN pip install --no-cache-dir --upgrade pip django
 RUN pip install -r requirements.txt
+RUN python manage.py migrate
