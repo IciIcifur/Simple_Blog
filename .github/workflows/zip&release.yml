@@ -18,8 +18,8 @@ jobs:
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: "IciIcifur|SimpleBlog|${{ github.head_ref || github.ref_name }}"
+          name: "SimpleBlog:${{ github.head_ref || github.ref_name }}"
           body: " ${{ github.event.head_commit.message }} "
           artifacts: "simpleBlog.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "${{ github.head_ref || github.ref_name }}"
+          tag: "release:${{ github.head_ref || github.ref_name }}"
