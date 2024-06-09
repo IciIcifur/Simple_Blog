@@ -1,21 +1,39 @@
 name: Release
-run-name: Building zip-release
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - feature_deploy_github_actions
-    tags:
-      - 'I am a release'
+      - master
+    paths:
+      - '*.py'
+      - '**/*.ts'
+      - '**/*.py'
+      - '**/**/**/**/*.ts'
+      - '.github/workflows/zip_release.yml'
 
 jobs:
-  build:
+  release:
+    name: Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    # Skip running release workflow on forks
+    if: github.repository_owner == 'IciIcifur'
     steps:
-      - uses: actions/checkout@v4
-      - uses: ncipollo/release-action@v1
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          artifacts: "simpleBlog.zip"
-          commit: "New release"
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 18.0.0
+          extra_plugins: |
+            @semantic-release/changelog@6.0.0
+            @semantic-release/git@10.0.0
+            conventional-changelog-conventionalcommits@4.6.3
+            conventional-changelog-eslint@3.0.9
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
