@@ -36,4 +36,4 @@ jobs:
             conventional-changelog-conventionalcommits@4.6.3
             conventional-changelog-eslint@3.0.9
         env:
-          GITHUB_TOKEN: ${{ GITHUB_TOKEN }}
+          GITHUB_TOKEN: $GITHUB_TOKEN
