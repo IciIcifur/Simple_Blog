@@ -1,0 +1,9 @@
+frontend
+.github
+.husky
+.venv
+run
+schema.json
+schema.json.graphql
+Pipfile.lock
+Pipfile
