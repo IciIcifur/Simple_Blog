@@ -1,33 +1,14 @@
-name: Tests via Karma
+name: Testing via Karma
 run-name: Running tests...
 on: [ push ]
 jobs:
-  RunTests:
+  TestFrontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: browser-actions/setup-chrome@v1
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
-      - name: Install requirements
-        run: |
-          pip install --no-cache-dir --upgrade pip django
-          pip install -r requirements.txt
-
-      - name: Run Backend
-        run: |
-          python manage.py runserver --noreload
-        env:
-          DEPLOY_HOST: http://localhost:8000
-      - name: Run Tests
+      - name: Perform Checks
         run: |
           yarn install
           yarn test
         working-directory: frontend
-        env:
-          DEPLOY_HOST: http://localhost:9876
-
+      - run: echo "${{ job.status }}."
