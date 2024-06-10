@@ -1,7 +1,10 @@
 name: Build & Push Images
-
 on:
-  [ push ]
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
 
 jobs:
   docker:
@@ -23,16 +26,16 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog1:backend
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog-v${{ github.event.pull_request.number }}:web
       - name: Build and push Proxy
         uses: docker/build-push-action@v5
         with:
           context: ./nginx
           push: true
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog1:proxy
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog-v${{ github.event.pull_request.number }}:nginx
       - name: Build and push Frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog1:frontend
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog-v${{ github.event.pull_request.number }}:frontend
