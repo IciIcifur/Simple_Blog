@@ -1,4 +1,5 @@
 name: Create ZIP & Release
+run-name: Zipping files & publish release...
 on:
   pull_request:
     branches:
@@ -23,8 +24,8 @@ jobs:
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: "SimpleBlog/${{ github.event.pull_request.title }}"
-          body: " ${{ github.event.pull_request.message || 'New release!'}} "
+          name: "simpleBlog-v${{ github.event.pull_request.number }}/${{ github.event.pull_request.title }}"
+          body: " ${{ github.event.pull_request.description || 'New release!'}} "
           artifacts: "simpleBlog.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "${{ github.event.pull_request.number }}-${{ github.head_ref || github.ref_name }}"
+          tag: "v${{ github.event.pull_request.number }}-${{ github.head_ref || github.ref_name }}"

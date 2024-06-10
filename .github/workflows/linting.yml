@@ -1,5 +1,5 @@
-name: Formatting Check
-run-name: Checking formatting through Black and Prettier
+name: Linting via Black & Prettier
+run-name: Checking formatting...
 on: [ push ]
 jobs:
   CheckBackend:
