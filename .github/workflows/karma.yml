@@ -2,7 +2,7 @@ name: Tests via Karma
 run-name: Running tests...
 on: [ push ]
 jobs:
-  CheckBackend:
+  RunTests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,12 +22,12 @@ jobs:
         run: |
           python manage.py runserver --noreload
         env:
-          host: 8000
+          DEPLOY_HOST: http://localhost:8000
       - name: Run Tests
         run: |
           yarn install
           yarn test
         working-directory: frontend
         env:
-          host: 9876
+          DEPLOY_HOST: http://localhost:9876
 
