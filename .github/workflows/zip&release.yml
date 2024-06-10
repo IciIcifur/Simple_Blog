@@ -2,7 +2,9 @@ name: Create ZIP & Release
 on:
   pull_request:
     branches:
-      - feature_deploy_github_actions
+      - master
+    types:
+      - closed
 
 jobs:
   build:
@@ -16,13 +18,13 @@ jobs:
         with:
           type: 'zip'
           filename: 'simpleBlog.zip'
-          exclusions: '/*.github/* /*.husky/* /*.venv*/ /*run*/ /*frontend/.angular*/ /*frontend/dist*/ /*frontend/node_modules*/'
+          exclusions: '/*.github/* /*.husky/* /*.venv*/ /*run*/ /*frontend/.angular*/ /*frontend/dist*/ /*frontend/node_modules*/ /*.git*/ /*.idea*/ /*.gitignore*/ /*schema.json*/ /*schema.json.graphql*/'
 
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0
         with:
           name: "SimpleBlog/${{ github.event.pull_request.title }}"
-          body: " ${{ github.event.pull_request.message }} "
+          body: " ${{ github.event.pull_request.message || 'New release!'}} "
           artifacts: "simpleBlog.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "${{ github.event.pull_request.number }}-${{ github.head_ref || github.ref_name }}"
