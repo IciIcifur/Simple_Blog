@@ -1,4 +1,5 @@
 name: Create ZIP & Release
+run-name: Zipping files & publish release...
 on:
   pull_request:
     branches:
