@@ -14,6 +14,6 @@ jobs:
         run: yarn install
         working-directory: frontend
       - name: Run Tests
-        run: yarn test --watch=false
+        run: yarn test --watch=false --browsers=ChromeHeadless
         working-directory: frontend
       - run: echo "${{ job.status }}."
