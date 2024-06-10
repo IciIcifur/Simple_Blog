@@ -1,10 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { appConfig } from './app.config';
+import { importProvidersFrom } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { ApolloProvider } from '@apollo/client';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [appConfig.providers],
     }).compileComponents();
   });
 
@@ -24,8 +29,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, frontend',
-    );
+    expect(compiled.querySelector('h1')?.textContent).toContain('ОтДуши');
   });
 });

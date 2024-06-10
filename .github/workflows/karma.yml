@@ -1,0 +1,19 @@
+name: Testing via Karma
+run-name: Running tests...
+on: [ push ]
+jobs:
+  TestFrontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          install-dependencies: true
+          install-chromedriver: true
+      - name: Install Dependencies
+        run: yarn install
+        working-directory: frontend
+      - name: Run Tests
+        run: yarn test --watch=false --browsers=ChromeHeadless
+        working-directory: frontend
+      - run: echo "${{ job.status }}."

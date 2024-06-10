@@ -131,8 +131,8 @@ GRAPHENE = {
     "SCHEMA": "backend.schema.schema",
 }
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:4200"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:4200", "http://localhost:9876"]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = default_headers + ("cache-control", "cookies")
-CORS_ALLOWED_ORIGINS = ["http://localhost:4200"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:4200", "http://localhost:9876"]
