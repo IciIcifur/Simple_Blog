@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-
 from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,15 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "graphene_django",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "blog",
     "corsheaders",
+    "backend",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +56,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "simpleBlog.urls"
 
-TEMPLATES_DIR = os.path.join(BASE_DIR, "blog", "frontend", "src")
+TEMPLATES_DIR = os.path.join(
+    BASE_DIR, ".venv", "site-packages", "graphene_django", "templates"
+)
 
 TEMPLATES = [
     {
@@ -127,7 +128,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 GRAPHENE = {
-    "SCHEMA": "blog.schema.schema",
+    "SCHEMA": "backend.schema.schema",
 }
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:4200"]

@@ -2,12 +2,18 @@
 url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
+# run `pip install pipenv --upgrade` to use new scripts
+
+[scripts]
+build-req = " pip freeze > requirements.txt"
+build-image = "docker build -t backend-image ."
+remove-image = "docker rmi backend-image"
+run-container = "docker-compose up"
+remove-container = "docker rm -f backend-container"
 
 [packages]
-django-cors-headers = "*"
 black = "*"
+django-cors-headers = "*"
+graphene-django = "*"
 
 [dev-packages]
-
-[requires]
-python_version = "3.11"

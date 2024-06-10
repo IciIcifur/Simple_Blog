@@ -1,5 +1,5 @@
 import graphene
-import blog.schema as schema
+import backend.schema as schema
 
 
 class Query(schema.Query, graphene.ObjectType):
