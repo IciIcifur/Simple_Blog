@@ -7,9 +7,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: browser-actions/setup-chrome@v1
-      - name: Perform Checks
-        run: |
-          yarn install
-          yarn test --watch=false
+        with:
+          install-dependencies: true
+          install-chromedriver: true
+      - name: Install Dependencies
+        run: yarn install
+        working-directory: frontend
+      - name: Run Tests
+        run: yarn test --watch=false
         working-directory: frontend
       - run: echo "${{ job.status }}."

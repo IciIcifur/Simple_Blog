@@ -1,14 +1,14 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {PostService} from './post.service';
-import {appConfig} from '../app.config';
-import {firstValueFrom, map} from 'rxjs';
+import { PostService } from './post.service';
+import { appConfig } from '../app.config';
+import { firstValueFrom, map } from 'rxjs';
 
 describe('PostService', () => {
   let service: PostService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({providers: [appConfig.providers]});
+    TestBed.configureTestingModule({ providers: [appConfig.providers] });
     service = TestBed.inject(PostService);
   });
 
@@ -30,7 +30,8 @@ describe('PostService', () => {
     expect(service).toBeTruthy();
   });
 
-  /*
+  /* TESTS MAY BE PERFORMED IF BACKEND IS RUNNING
+
   it('should add posts', async () => {
     await service.createPost({ content: 'Test content', title: 'Test title' });
     service.allPosts$.subscribe((posts) =>
