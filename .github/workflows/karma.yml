@@ -6,9 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: browser-actions/setup-chrome@v1
       - name: Perform Checks
         run: |
           yarn install
-          yarn test
+          yarn test --watch=false
         working-directory: frontend
       - run: echo "${{ job.status }}."
