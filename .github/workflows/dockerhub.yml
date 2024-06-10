@@ -23,16 +23,16 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog:backend
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog1:backend
       - name: Build and push Proxy
         uses: docker/build-push-action@v5
         with:
           context: ./nginx
           push: true
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog:proxy
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog1:proxy
       - name: Build and push Frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog:frontend
+          tags: ${{ secrets.DOCKER_NAMESPACE }}/simpleblog1:frontend
