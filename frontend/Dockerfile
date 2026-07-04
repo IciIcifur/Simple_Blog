@@ -9,6 +9,7 @@ WORKDIR /frontend
 COPY . .
 # install dependencies, matching yarn.lock
 RUN yarn install
+ENV NODE_OPTIONS="--max-old-space-size=512"
 # build the app
 RUN yarn build
 
