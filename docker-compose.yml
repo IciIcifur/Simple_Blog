@@ -8,17 +8,10 @@ services:
     container_name: backend
     environment:
       production: True
-  nginx:
-    build: ./nginx
-    ports:
-      - "8000:80"
-    container_name: proxy
-    depends_on:
-      - web
   frontend:
     build: ./frontend
     ports:
       - "4200:80"
     container_name: frontend
     depends_on:
-      - nginx
+      - web

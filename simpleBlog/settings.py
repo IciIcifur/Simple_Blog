@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tdv-+z@=j#jnkblrf9aue2d$gev4v^9fdrfq3&to+zp8#7$*n*"
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-safe-fallback-key-for-local-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Application definition
 
@@ -131,8 +131,8 @@ GRAPHENE = {
     "SCHEMA": "backend.schema.schema",
 }
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:4200", "http://localhost:9876"]
+CSRF_TRUSTED_ORIGINS = os.environ.get('DJANGO_CORS_ALLOWED_ORIGINS', 'http://localhost:4200').split(',')
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = default_headers + ("cache-control", "cookies")
-CORS_ALLOWED_ORIGINS = ["http://localhost:4200", "http://localhost:9876"]
+CORS_ALLOWED_ORIGINS = os.environ.get('DJANGO_CORS_ALLOWED_ORIGINS', 'http://localhost:4200').split(',')
