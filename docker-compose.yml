@@ -6,6 +6,8 @@ services:
     expose:
       - 6000
     container_name: backend
+    env_file:
+      - .env
     environment:
       production: True
   frontend:
